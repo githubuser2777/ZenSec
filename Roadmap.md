@@ -1,25 +1,21 @@
 # ZenSec Roadmap
 
-## Phase 1: Core Cryptography & CLI (Current)
-- [ ] Setup Go project structure (`cmd`, `internal`).
-- [ ] Define secure encryption file format (handling chunked AES-GCM securely to prevent reordering attacks).
-- [ ] Implement Argon2id key derivation logic.
-- [ ] Implement chunked stream encryption and decryption.
-- [ ] Basic CLI application with `-encrypt` and `-decrypt` flags.
-- [ ] Comprehensive unit tests for core crypto functions.
+> **Status:** All planned phases are currently COMPLETE. The tool has reached a stable v1.0 state.
 
-## Phase 2: Terminal User Interface (TUI)
-- [ ] Integrate a TUI framework (e.g., Charmbracelet's Bubbletea).
-- [ ] Create a file browser component to select files for encryption/decryption.
-- [ ] Implement secure password prompt UI.
-- [ ] Add progress bars for large file processing.
+## ✅ Phase 1: Core Cryptography & Standard CLI
+- [x] Setup Go project structure (`cmd`, `internal`).
+- [x] Define secure encryption file format (handling chunked AES-GCM securely to prevent reordering attacks with sequence numbers).
+- [x] Implement Argon2id key derivation logic.
+- [x] Implement chunked stream encryption and decryption.
+- [x] Minimal CLI application with `flag` standard library.
+- [x] Comprehensive unit tests for core crypto functions.
 
-## Phase 3: Graphical User Interface (GUI)
-- [ ] Evaluate and select GUI framework (Wails or Fyne).
-- [ ] Design accessible interface with drag-and-drop support.
-- [ ] Build desktop installers for Windows, macOS, and Linux.
+## ✅ Phase 2: OS Integration & Utils 
+- [x] Document batch processing using native shell scripts (`batch_zensec.bat`).
+- [x] Provide OS Context Menu integrations (Windows `.reg` file) for "Right-click -> Encrypt with ZenSec".
+- [x] Add advanced Keyfile support (`-keyfile` flag).
 
-## Phase 4: Advanced Features
-- [ ] Keyfile support (encrypt/decrypt using a file instead of a password).
-- [ ] Batch processing (encrypt multiple files or directories).
-- [ ] Integration with OS context menus (e.g., "Right-click -> Encrypt with ZenSec").
+## 🔮 Future Considerations (Community Driven)
+While the core philosophy of ZenSec is "ponytail minimalism" (YAGNI - You Aren't Gonna Need It), future community forks may explore:
+- Built-in multi-threading for processing multiple files simultaneously in Go.
+- Integration into macOS Automator / Linux `.desktop` files.

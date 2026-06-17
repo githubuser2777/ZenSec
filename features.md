@@ -1,28 +1,18 @@
 # ZenSec Features Detail
 
-This document provides a comprehensive list of features that are currently implemented or planned for ZenSec.
+## 🔐 Core Cryptographic Primitives
+* **AES-256-GCM (Galois/Counter Mode):** The gold standard for authenticated encryption. Ensures data confidentiality and guarantees that any tampering will cause decryption to fail immediately.
+* **Argon2id Key Derivation:** Uses the winner of the Password Hashing Competition (PHC) to derive a mathematically secure 32-byte key from human-readable passwords or raw keyfiles. Configured to resist GPU and ASIC brute-force attacks.
 
-## 🔐 Core Cryptographic Features
-*   **AES-256-GCM Authenticated Encryption:** Ensures that data is both securely encrypted and protected against any tampering or corruption.
-*   **Argon2id Key Derivation:** Uses the winner of the Password Hashing Competition (PHC) to provide maximum resistance against GPU and ASIC brute-force attacks.
-*   **Memory-Efficient Chunking:** Processes files in a streaming fashion (e.g., 64KB chunks), allowing the encryption of massive files (GBs or TBs) without running out of RAM.
-*   **Cryptographically Secure Nonces:** Implements sequential nonce generation intertwined with the chunk counter to prevent chunk reordering, substitution, and truncation attacks.
+## 🛡️ Attack Mitigations
+* **Memory-Efficient Chunking (64KB):** Files are processed in 64KB blocks. This prevents Out-Of-Memory (OOM) crashes when processing 50GB+ files on machines with limited RAM.
+* **Chunk Reordering Protection:** Each chunk's nonce and Additional Authenticated Data (AAD) is mathematically bound to a strictly incrementing sequence number. Attackers cannot swap chunk 1 with chunk 5 without breaking the authentication tag.
+* **Truncation Protection:** The final chunk is flagged with a special `isLast` byte inside the AAD. If an attacker deletes the final chunk of an encrypted file to cut off data, the decryption process will realize the `isLast` flag is missing from the *new* final chunk and will halt with a tampering error.
 
-## 💻 Interfaces
-*   **Command-Line Interface (CLI):** 
-    *   Fast, scriptable interface for system administrators and automated backups.
-    *   Secure, hidden password prompts.
-*   **Terminal User Interface (TUI):** *(Planned)*
-    *   Interactive terminal navigation without needing a windowing system.
-    *   Built-in file browser to easily select files for encryption/decryption.
-    *   Real-time progress bars for large file processing.
-*   **Graphical User Interface (GUI):** *(Planned)*
-    *   User-friendly application for everyday use.
-    *   Drag-and-drop file support.
-    *   Native OS integration (system tray, native dialogs).
-
-## 🚀 Advanced Functionality (Planned)
-*   **Keyfile Support:** Use a physical file (e.g., stored on a USB drive) as the encryption key instead of or in addition to a password.
-*   **Batch Processing:** Recursively encrypt or decrypt entire directories.
-*   **Header Obfuscation:** Option to hide metadata so that the resulting file does not have a recognizable signature (plausible deniability).
-*   **OS Context Menu Integration:** Right-click a file in Windows Explorer, macOS Finder, or Linux File Manager and select "Encrypt with ZenSec".
+## 💻 Interface & Automation
+* **Zero-Dependency CLI:** Built entirely on the Go standard library `flag` package to keep the compiled binary footprint under 5MB.
+* **Secure Prompts:** Uses `golang.org/x/term` to prevent passwords from echoing to the terminal screen during manual entry.
+* **Keyfile Authentication:** Allows substituting passwords with raw files. Crucial for scripting, automated backups, or high-security physical token workflows (e.g., storing the keyfile on a USB).
+* **OS Integrations:** 
+  * Windows Context Menu integration via `.reg` files.
+  * Multi-file Batch Processing via `batch_zensec.bat`.

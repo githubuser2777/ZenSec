@@ -1,0 +1,18 @@
+Windows Registry Editor Version 5.00
+
+; Note: For these context menus to work, 'zensec.exe' must be in your system's PATH environment variable.
+; For example, you can copy 'zensec.exe' to C:\Windows\System32 or any other directory in PATH.
+
+[HKEY_CLASSES_ROOT\*\shell\ZenSecEncrypt]
+@="Encrypt with ZenSec"
+"Icon"="cmd.exe"
+
+[HKEY_CLASSES_ROOT\*\shell\ZenSecEncrypt\command]
+@="cmd.exe /c \"zensec.exe -encrypt -file \\\"%1\\\" & pause\""
+
+[HKEY_CLASSES_ROOT\*\shell\ZenSecDecrypt]
+@="Decrypt with ZenSec"
+"Icon"="cmd.exe"
+
+[HKEY_CLASSES_ROOT\*\shell\ZenSecDecrypt\command]
+@="cmd.exe /c \"zensec.exe -decrypt -file \\\"%1\\\" & pause\""

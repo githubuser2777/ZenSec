@@ -1,72 +1,100 @@
-# ZenSec - Local File Encryption Utility 🔐
+# ZenSec - The Minimalist Local File Encryption Utility 🔐
 
-A blazing-fast, secure command-line, terminal, and graphical utility built to encrypt and decrypt local files. Written entirely in Go, this project provides multiple interfaces (CLI, TUI, GUI) to suit your workflow. It leverages Go's powerful cryptography libraries to ensure data privacy and integrity.
+[![Go Report Card](https://goreportcard.com/badge/github.com/githubuser2777/ZenSec)](https://goreportcard.com/report/github.com/githubuser2777/ZenSec)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/githubuser2777/ZenSec)](https://golang.org/doc/go1.20)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://github.com/githubuser2777/ZenSec/actions/workflows/build.yml/badge.svg)](https://github.com/githubuser2777/ZenSec/actions)
 
-## Features
+A blazing-fast, strictly secure, zero-dependency command-line utility built to encrypt and decrypt local files. Written entirely in Go, ZenSec follows the UNIX philosophy: do one thing and do it exceptionally well. It leverages Go's powerful standard cryptography libraries to ensure data privacy and integrity without any unnecessary bloat.
 
-* **Multiple Interfaces:** Includes a fast Command-Line Interface (CLI), an interactive Terminal UI (TUI), and a user-friendly Graphical User Interface (GUI).
-* **Single Binary Execution:** Compiles to a dependency-free executable (for CLI/TUI), making it incredibly easy to run on any system.
-* **AES-GCM Encryption:** Uses the Advanced Encryption Standard with Galois/Counter Mode for authenticated encryption.
-* **Secure Key Derivation:** Implements robust key derivation (Argon2id) to safely convert human-readable passwords into mathematically secure 32-byte cryptographic keys.
-* **Memory Efficient:** Processes files in chunked byte streams rather than loading the entire file into memory, allowing you to encrypt massive files without crashing your system.
+---
 
-## Documentation
+## ✨ Features
 
-For more detailed information, please refer to our documentation files:
-* [Features Detail](features.md) - Comprehensive list of core and planned features.
-* [Roadmap](Roadmap.md) - Project timeline and planned features.
-* [Security Overview](security.md) - Cryptographic design and security policies.
-* [Agent Rules](agents.md) - Guidelines for AI agents working on this repository.
-* [Project Rules](rules.md) - Coding standards and contribution guidelines.
-* [AI Workflows](ai-workflows.md) - Repository management (tags, issues, branches).
-* [Project Overview](docs/overview.md) - In-depth project description and architecture.
+* **Zero-Dependency CLI:** A straightforward Command-Line Interface built entirely with standard libraries. No bloated UI frameworks.
+* **Military-Grade Cryptography:**
+  * **AES-256-GCM:** Authenticated streaming encryption prevents data tampering.
+  * **Argon2id:** The PHC-winning key derivation function protects against GPU/ASIC brute forcing.
+  * **Anti-Tampering Architecture:** Sequence numbers in nonces prevent chunk reordering, while custom AAD flags mathematically prevent truncation attacks.
+* **Memory Efficient (Streamed Chunking):** Processes massive files (GBs or TBs) using a tiny 64KB memory footprint. Your RAM will never overflow.
+* **Advanced Automation:**
+  * **Keyfile Support:** Use any physical file (an image, a PDF, a text file) as your cryptographic key instead of typing a password.
+  * **Batch Processing:** Includes native scripts to instantly encrypt/decrypt hundreds of files in a directory.
+* **Native OS Integration:** Easily installable Windows Context Menu (Right-click -> Encrypt with ZenSec).
 
-## Tech Stack
+---
 
-* **Language:** Go (Golang)
-* **Core Packages:** `crypto/aes`, `crypto/cipher`, `crypto/rand`
-* **Key Derivation:** `golang.org/x/crypto/argon2`
-* **TUI Framework:** (Planned) e.g., Bubbletea
-* **GUI Framework:** (Planned) e.g., Wails or Fyne
-
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
+* [Go 1.20+](https://go.dev/doc/install) (if building from source)
 
-Ensure you have [Go](https://go.dev/doc/install) installed on your system.
+### Installation
 
-### Installation & Build
-
-Clone the repository to your local machine, initialize the module, and build the binary:
+Clone the repository and build the single, standalone binary:
 
 ```bash
-# Clone the repository
 git clone https://github.com/githubuser2777/ZenSec.git
 cd ZenSec
 
-# Download necessary supplemental crypto packages
+# Download dependencies (only golang.org/x/crypto and golang.org/x/term)
 go mod tidy
 
-# Compile the CLI/TUI tool
-go build -o zensec main.go
+# Build the executable
+go build -o zensec.exe cmd/zensec/main.go
 ```
 
-## Usage
+> **Pro-Tip:** Move `zensec.exe` to a folder in your system's `PATH` (e.g., `C:\Windows\System32` on Windows or `/usr/local/bin` on Linux) so you can run it from anywhere.
 
-*(Currently CLI is the primary focus. TUI and GUI usage will be updated in the future).*
+---
 
-### To Encrypt a file (CLI):
+## 🛠️ Usage Guide
+
+### 1. Standard Encryption & Decryption (Password)
+
+Encrypt a file:
+```bash
+zensec -encrypt -file my_secret.txt
+```
+*(You will be securely prompted to type a password, which will be hidden as you type)*
+
+Decrypt a file:
+```bash
+zensec -decrypt -file my_secret.txt.enc
+```
+
+### 2. Keyfile Mode (Passwordless)
+
+Instead of a password, you can use any file as your key. This is incredibly useful for automation or storing your "key" on an external USB drive.
 
 ```bash
-./zensec -mode=encrypt -file=my_secret_notes.txt
+# Encrypt using an image as the key
+zensec -encrypt -file backup.zip -keyfile D:\my_secret_key.jpg
+
+# Decrypt using the same image
+zensec -decrypt -file backup.zip.enc -keyfile D:\my_secret_key.jpg
 ```
 
-### To Decrypt a file (CLI):
+### 3. Windows Context Menu (Right-Click)
 
-```bash
-./zensec -mode=decrypt -file=my_secret_notes.txt.enc
-```
+1. Ensure `zensec.exe` is in your system `PATH`.
+2. Double-click the included `install_context_menu.reg` file.
+3. You can now right-click any file in Windows Explorer and select **"Encrypt with ZenSec"** or **"Decrypt with ZenSec"**. A secure terminal will pop up asking for your password.
 
-## License
+### 4. Batch Processing (Directories)
+
+Need to encrypt a whole folder? Just double-click `batch_zensec.bat`. It will prompt you for the folder path, your keyfile, and automatically process every file inside.
+
+---
+
+## 📚 Documentation
+
+For an in-depth look at the internal architecture, please refer to our documentation files:
+* [Features Detail](features.md) - Deep dive into technical capabilities.
+* [Security Overview](security.md) - Cryptographic design and threat modeling.
+* [Project Overview](docs/overview.md) - Philosophy and structural architecture.
+* [Roadmap](Roadmap.md) - Project history and status.
+
+## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
