@@ -1,6 +1,6 @@
 module github.com/githubuser2777/ZenSec
 
-go 1.26.3
+go 1.25.0
 
 require (
 	golang.org/x/crypto v0.53.0

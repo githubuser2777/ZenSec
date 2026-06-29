@@ -1,0 +1,44 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.23'
+
+      - name: Build Windows
+        env:
+          GOOS: windows
+          GOARCH: amd64
+        run: go build -o zensec-windows-amd64.exe ./cmd/zensec/...
+
+      - name: Build Linux
+        env:
+          GOOS: linux
+          GOARCH: amd64
+        run: go build -o zensec-linux-amd64 ./cmd/zensec/...
+
+      - name: Build macOS
+        env:
+          GOOS: darwin
+          GOARCH: arm64
+        run: go build -o zensec-darwin-arm64 ./cmd/zensec/...
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            zensec-windows-amd64.exe
+            zensec-linux-amd64
+            zensec-darwin-arm64
+          generate_release_notes: true
