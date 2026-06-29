@@ -1,0 +1,16 @@
+# Release v1.1.0 - UX, Safety & Automation Improvements
+
+This release brings critical safety features, cross-platform automation scripts, and stronger testing guarantees to ZenSec.
+
+### 🔒 Security & UX Enhancements
+- **Password Confirmation**: When encrypting files interactively, ZenSec now explicitly prompts for a password confirmation to mathematically eliminate the risk of typos causing data loss.
+- **Overwrite Protection**: Added a safe-guard prompt when a decryption or encryption operation attempts to overwrite an existing file.
+
+### 🐧 Cross-Platform Automation
+- **Unix Batch Processing**: Added `batch_zensec.sh` for macOS and Linux users, allowing seamless directory-wide encryption/decryption (matching the existing Windows `.bat` workflow).
+
+### 🛠 Internal & Documentation Updates
+- Complete overhaul of the `README.md` to be more professional, featuring Mermaid architecture diagrams and structured documentation.
+- Hardened `TestChunkReorderingAttack` in unit tests by actively simulating a malicious block swap and verifying that sequence-number AAD authentication perfectly prevents tampering.
+- Added GitHub Actions pipeline for automated multi-platform binary compilation on Release tags.
+- Fixed `go.mod` version parsing issues in CI environments (Updated to Go 1.23).
