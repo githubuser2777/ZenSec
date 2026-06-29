@@ -5,9 +5,9 @@
 *.so
 *.dylib
 bin/
-zensec
-zensec.exe
-
+/zensec
+/zensec.exe
+/zensec-*
 # Test binary, built with `go test -c`
 *.test
 
