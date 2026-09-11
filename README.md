@@ -2,7 +2,7 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/githubuser2777/ZenSec)](https://goreportcard.com/report/github.com/githubuser2777/ZenSec)
 [![Go Version](https://img.shields.io/github/go-mod/go-version/githubuser2777/ZenSec)](https://golang.org/doc/go1.23)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![License: GPL-3.0-only](https://img.shields.io/badge/License-GPL--3.0--only-blue.svg)](LICENSE)
 [![Build Status](https://github.com/githubuser2777/ZenSec/actions/workflows/build.yml/badge.svg)](https://github.com/githubuser2777/ZenSec/actions)
 
 **ZenSec** is a high-performance, strictly secure, and zero-dependency command-line utility built to encrypt and decrypt local files. Written entirely in Go, it adheres to the UNIX philosophy: *do one thing and do it exceptionally well*. 
@@ -146,4 +146,4 @@ For an in-depth look at the internal architecture, please refer to our documenta
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [GNU General Public License v3.0 (GPL-3.0-only)](LICENSE).
