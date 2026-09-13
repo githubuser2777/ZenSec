@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/githubuser2777/ZenSec/internal/crypto"
+	"github.com/ViolaPeracia/ZenSec/internal/crypto"
 	"golang.org/x/term"
 )
 

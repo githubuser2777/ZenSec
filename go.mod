@@ -1,4 +1,4 @@
-module github.com/githubuser2777/ZenSec
+module github.com/ViolaPeracia/ZenSec
 
 go 1.25.0
 

@@ -1,9 +1,9 @@
 # ZenSec 🔐
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/githubuser2777/ZenSec)](https://goreportcard.com/report/github.com/githubuser2777/ZenSec)
-[![Go Version](https://img.shields.io/github/go-mod/go-version/githubuser2777/ZenSec)](https://golang.org/doc/go1.23)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ViolaPeracia/ZenSec)](https://goreportcard.com/report/github.com/ViolaPeracia/ZenSec)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/ViolaPeracia/ZenSec)](https://golang.org/doc/go1.23)
 [![License: GPL-3.0-only](https://img.shields.io/badge/License-GPL--3.0--only-blue.svg)](LICENSE)
-[![Build Status](https://github.com/githubuser2777/ZenSec/actions/workflows/build.yml/badge.svg)](https://github.com/githubuser2777/ZenSec/actions)
+[![Build Status](https://github.com/ViolaPeracia/ZenSec/actions/workflows/build.yml/badge.svg)](https://github.com/ViolaPeracia/ZenSec/actions)
 
 **ZenSec** is a high-performance, strictly secure, and zero-dependency command-line utility built to encrypt and decrypt local files. Written entirely in Go, it adheres to the UNIX philosophy: *do one thing and do it exceptionally well*. 
 
@@ -68,7 +68,7 @@ graph TD
 Clone the repository and build the standalone binary:
 
 ```bash
-git clone https://github.com/githubuser2777/ZenSec.git
+git clone https://github.com/ViolaPeracia/ZenSec.git
 cd ZenSec
 
 # Download required modules
